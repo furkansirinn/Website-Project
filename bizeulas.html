@@ -1,0 +1,56 @@
+<html lang="tr">
+<body>
+
+<%
+set conn=Server.CreateObject("ADODB.Connection")
+conn.Provider="Microsoft.Jet.OLEDB.4.0"
+
+conn.Open Server.MapPath ("SafrannOto.mdb")
+
+
+
+sql="INSERT INTO bizeulas (ad,email,konu,mesaj)"
+sql=sql & " VALUES "
+sql=sql & "('" & Request.Form("adi") & "',"
+sql=sql & "'" & Request.Form("emaili") & "',"
+sql=sql & "'" & Request.Form("konuu") & "',"
+sql=sql & "'" & Request.Form("mesaj") & "')"
+
+on error resume next
+conn.Execute sql,recaffected
+
+conn.close
+%>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #515151;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 80px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+	<%if err<>0 then%>
+  <h2><%Response.Write( "Hata!")%></h2>
+     <% else%>
+  <h2><%Response.Write( "Bir Kayit Eklendi")%></h2>
+     <%end if%> 
+        
+    </div>
+	
+</body>
+</html>
